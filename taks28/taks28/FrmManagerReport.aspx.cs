@@ -34,7 +34,22 @@ namespace taks28
             if (dt.Rows.Count > 0)
             {
                 dtGrid.DataSource = dt;
-                dtGrid.DataBind();
+               dtGrid.DataBind();
+            }
+        }
+
+        protected void dtGrid_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            if(e.Row.RowType==DataControlRowType.DataRow)
+            {
+                DataRowView dr = (DataRowView)e.Row.DataItem;
+                if (dr["USER_IMAGE"] != DBNull.Value)
+                {
+                    string imageUrl = "data:image/jpg;base64," + Convert.ToBase64String((byte[])dr["USER_IMAGE"]);
+                    (e.Row.FindControl("USER_IMAGE") as Image).ImageUrl = imageUrl;
+
+                }
+                  
             }
         }
     }

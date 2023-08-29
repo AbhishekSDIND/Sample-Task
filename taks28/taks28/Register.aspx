@@ -112,7 +112,23 @@
                                     <span>test</span>
                                 </div>
                             </div>
-                           
+                           <div class="field-wrap">
+                                <div class="input-wrap">
+                                    <label for="userimage" class="form-lable">
+                                        <span>User Image</span>
+                                        <!-- <span>
+                                        <span>*</span>
+                                        your email address
+                                    </span> -->
+                                    </label>
+                                    <asp:TextBox ID="TextBox1" runat="server" />
+                                   <asp:FileUpload ID="FileUpload1" runat="server" />
+                                     <asp:Label ID="LblMsg" runat="server" Text="label"></asp:Label> 
+                                </div>
+                                <div class="error-msg">
+                                    <span>test</span>
+                                </div>
+                            </div>
                             <div class="btn-wrap">
                                 <asp:Button ID ="Submit" Text="Submit" runat="server" OnClick="Submit_Click" class="submit-btn"/>
                             </div>

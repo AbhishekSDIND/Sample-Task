@@ -10,6 +10,7 @@ using taks28.Models;
 using System.Data;
 using static System.Net.Mime.MediaTypeNames;
 using System.IO;
+using System.Reflection.Emit;
 
 namespace taks28
 {
@@ -19,7 +20,7 @@ namespace taks28
         SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["conn"].ConnectionString);
         string query;
         SqlCommand cmd;
-        protected System.Web.UI.HtmlControls.HtmlInputFile oFile;
+        //protected System.Web.UI.HtmlControls.HtmlInputFile oFile;
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -99,6 +100,23 @@ namespace taks28
                 cmd.Parameters.AddWithValue("@USER_PASSWORD", objr.Password);
                 cmd.Parameters.AddWithValue("@USER_TYPE", objr.USER_TYPE);
                 cmd.Parameters.AddWithValue("@MODE", objr.MODE);
+                if (FileUpload1.HasFile)
+                {
+                    int imagefilelenth = FileUpload1.PostedFile.ContentLength;
+                    byte[] imgarray = new byte[imagefilelenth];
+                    HttpPostedFile image = FileUpload1.PostedFile;
+                    image.InputStream.Read(imgarray, 0, imagefilelenth);
+                    cmd.Parameters.AddWithValue("@IMAGE_NAME", TextBox1.Text);
+                    cmd.Parameters.AddWithValue("@USER_IMAGE", imgarray);
+                    LblMsg.Visible = true;
+                    LblMsg.Text = "Image Is Uploaded successfully";
+                    //imagebindGrid();
+                }
+                else 
+                {
+                    cmd.Parameters.AddWithValue("@IMAGE_NAME", null);
+                    cmd.Parameters.AddWithValue("@USER_IMAGE", null);
+                }
                 cmd.ExecuteNonQuery();
                 con.Close();
                 if (Session["USER_IDS"] != null)
@@ -163,7 +181,7 @@ namespace taks28
                 }
             }
         }
-
+       
         //protected void btnUpload_Click(object sender, EventArgs e)
         //{
         //    string strFileName;
@@ -199,6 +217,6 @@ namespace taks28
         //    // Display the result of the upload.
         //    frmConfirmation.Visible = true;
         //}
-       
+
     }
 }
