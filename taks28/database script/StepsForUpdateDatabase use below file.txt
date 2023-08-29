@@ -1,0 +1,3 @@
+In the [UserManagement] database, I have provided you with an updated script. 
+You can execute this new updated script on your sql editor and paste a script code and F5 button execute code
+In the updated script, I have included the code for uploading profile images.
